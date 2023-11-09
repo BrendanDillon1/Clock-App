@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Clock } from "../../../utils/interfaces";
-import Settings from "../Settings";
-import Clocks from "../Clocks";
+import { Clocks } from "../../../utils/interfaces";
+import Settings from "../Settings/Settings";
+import Clock from "../Clocks/Clocks";
 
 const App: React.FC = () => {
-  const [clocks, setClocks] = useState<Clock[]>([]);
+  const [clocks, setClocks] = useState<Clocks[]>([]);
 
   const addClock = (timeZone: string, isDigital: boolean) => {
-    const newClock: Clock = {
+    const newClock: Clocks = {
       id: Date.now(),
       timeZone,
       isDigital,
@@ -15,7 +15,7 @@ const App: React.FC = () => {
     setClocks((clocks) => [...clocks, newClock]);
   };
 
-  const updateClock = (clockToUpdate: Clock) => {
+  const updateClock = (clockToUpdate: Clocks) => {
     setClocks((clocks) => clocks.map((clock) => (clock.id === clockToUpdate.id ? clockToUpdate : clock)));
   };
 
@@ -27,8 +27,9 @@ const App: React.FC = () => {
     <div className="App">
       <h1>Clocks And Time</h1>
       <button onClick={() => addClock("UTC", true)}>Add UTC Digital Clock</button>
-      <Settings clocks={clocks} updateClock={updateClock} />
-      <Clocks clocks={clocks} />
+      <Settings clocks={clocks} updateClock={updateClock} 
+      />
+      <Clock clock={clocks} />
     </div>
   );
 };
