@@ -1,10 +1,5 @@
-// Clock.tsx
 import React, { useState, useEffect } from "react";
-import { Clock } from "../../../utils/interfaces";
-interface ClockProps {
-  clock: Clock;
-  deleteClock: (id: number) => void;
-}
+import { ClockProps } from "../../../utils/interfaces";
 
 const Clock: React.FC<ClockProps> = ({ clock, deleteClock }) => {
   const [time, setTime] = useState<Date>(new Date());
