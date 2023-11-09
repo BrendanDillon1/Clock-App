@@ -1,8 +1,8 @@
 // Clock.tsx
 import React, { useState, useEffect } from "react";
-import { ClockInterface } from "./ClockInterface";
+import { Clock } from "../../../utils/interfaces";
 interface ClockProps {
-  clock: ClockInterface;
+  clock: Clock;
   deleteClock: (id: number) => void;
 }
 
