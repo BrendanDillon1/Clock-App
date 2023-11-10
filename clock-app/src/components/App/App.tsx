@@ -22,6 +22,7 @@ const App = () => {
         isDigital: true,
       };
 
+
       setClocks((prevClocks) =>
         prevClocks.map((clock) =>
           clock.id === id ? { ...clock, ...updateClock } : clock
@@ -36,16 +37,10 @@ const App = () => {
   return (
     <div className="App">
       <h1>Clocks And Time</h1>
-      {/* <button onClick={() => addClock("UTC", true)}>
-          Add UTC Digital Clock
-        </button> */}
+      <button onClick={() => addClock("UTC", true)}>Add UTC Digital Clock</button>
       <Settings clocks={clocks} updateClock={updateClock} />
       {clocks.map((clock) => (
-        <Clock
-          key={clock.id}
-          clock={clock}
-          deleteClock={() => deleteClock(clock.id)}
-        />
+        <Clock key={clock.id} clock={clock} deleteClock={deleteClock} />
       ))}
     </div>
   );
