@@ -1,0 +1,16 @@
+.clock {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  text-align: center;
+}
+
+.digitalClock {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/*.analogClock {
+  /* Placeholder for analog clock styles */
+/*}
