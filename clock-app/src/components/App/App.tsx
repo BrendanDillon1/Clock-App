@@ -3,22 +3,32 @@ import { Clocks } from "../../../utils/interfaces";
 import Settings from "../Settings/Settings";
 import Clock from "../Clocks/Clocks";
 
-const App: React.FC = () => {
-  const [clocks, setClocks] = useState<Clocks[]>([]);
+const App = () => {
+  const [clocks, setClocks] = useState<Clocks[]>([
+    { id: 1, timeZone: "America/Detroit", isDigital: true },
+    { id: 2, timeZone: "Asia/Seoul", isDigital: true },
+    { id: 3, timeZone: "Iceland", isDigital: true },
+    { id: 4, timeZone: "Pacific/Tahiti", isDigital: true },
+  ]);
 
-  const addClock = (timeZone: string, isDigital: boolean) => {
-    const newClock: Clocks = {
-      id: Date.now(),
-      timeZone,
-      isDigital,
+  const updateClock = (
+    id: number,
+    updatedClockData: { timeZone: string; isDigital: boolean }
+  ) => {
+    const addClock = () => {
+      const newClock: Clocks = {
+        id: clocks.length + 1,
+        timeZone: "UTC",
+        isDigital: true,
+      };
+
+      setClocks((prevClocks) =>
+        prevClocks.map((clock) =>
+          clock.id === id ? { ...clock, ...updateClock } : clock
+        )
+      );
     };
-    setClocks((clocks) => [...clocks, newClock]);
   };
-
-  const updateClock = (clockToUpdate: Clocks) => {
-    setClocks((clocks) => clocks.map((clock) => (clock.id === clockToUpdate.id ? clockToUpdate : clock)));
-  };
-
   const deleteClock = (clockId: number) => {
     setClocks((clocks) => clocks.filter((clock) => clock.id !== clockId));
   };
@@ -26,10 +36,17 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <h1>Clocks And Time</h1>
-      <button onClick={() => addClock("UTC", true)}>Add UTC Digital Clock</button>
-      <Settings clocks={clocks} updateClock={updateClock} 
-      />
-      <Clock clock={clocks} />
+      {/* <button onClick={() => addClock("UTC", true)}>
+          Add UTC Digital Clock
+        </button> */}
+      <Settings clocks={clocks} updateClock={updateClock} />
+      {clocks.map((clock) => (
+        <Clock
+          key={clock.id}
+          clock={clock}
+          deleteClock={() => deleteClock(clock.id)}
+        />
+      ))}
     </div>
   );
 };
