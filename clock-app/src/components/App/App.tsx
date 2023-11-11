@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Clocks } from "../../../utils/interfaces";
 import Settings from "../Settings/Settings";
 import Clock from "../Clocks/Clocks";
+import "./App.css"
 
 const App = () => {
   const [clocks, setClocks] = useState<Clocks[]>([
@@ -19,30 +20,41 @@ const App = () => {
     setClocks((clocks) => [...clocks, newClock]);
   };
 
-  const updateClock = (
-    id: number,
-    updatedClockData: { timeZone: string; isDigital: boolean }
-  ) => {
+  const updateClock = (id: number, updatedValues: Partial<Clocks>) => {
     setClocks((prevClocks) =>
       prevClocks.map((clock) =>
-        clock.id === id ? { ...clock, ...updatedClockData } : clock
+        clock.id === id ? { ...clock, ...updatedValues } : clock
       )
     );
   };
+
   const deleteClock = (clockId: number) => {
     setClocks((clocks) => clocks.filter((clock) => clock.id !== clockId));
   };
 
   return (
     <div className="App">
-      <h1>Clocks And Time</h1>
-      <button onClick={() => addClock("UTC", true)}>
-        Add UTC Digital Clock
-      </button>
-      <Settings clocks={clocks} updateClock={updateClock} />
-      {clocks.map((clock) => (
-        <Clock key={clock.id} clock={clock} deleteClock={deleteClock} />
-      ))}
+      <header className="header">
+        <h1>Clocks And Time</h1>
+        <button onClick={() => addClock("UTC", true)}>
+          Add UTC Digital Clock
+        </button>
+      </header>
+      <div className="components-container">
+        <Settings 
+          clocks={clocks} 
+          updateClock={updateClock} 
+        />
+        <div className="clocks-container">
+          {clocks.map((clock) => (
+            <Clock 
+              key={clock.id}
+              clock={clock} 
+              deleteClock={deleteClock} 
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

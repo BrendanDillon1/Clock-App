@@ -1,5 +1,39 @@
 .App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  font-family: 'Space Grotesk';
+  background-color:  deepskyblue;
+  color: whitesmoke;
+  min-height: 100vh;
+  padding: 10px;
+}
+
+.header {
+  width: 100%;
+}
+
+.components-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.clocks-container {
+  min-height: fit-content;
+}
+
+.clock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  height: 200px;
+  width: 125px;
+  padding: 10px;
 }
 
 .App-logo {

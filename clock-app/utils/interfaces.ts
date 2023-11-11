@@ -11,5 +11,10 @@ export interface ClockProps {
 
 export interface SettingsProps {
     clocks: Clocks[]
-    updateClock: (id: number, updateClock: { timeZone: string, isDigital: boolean}) => void
+    updateClock: (id: number, clock: Partial<Clocks>) => void;
+}
+
+export interface ClockFormProps {
+  clock: Clocks;
+  updateClock: (id: number, clock: Partial<Clocks>) => void;
 }

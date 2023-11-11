@@ -1,20 +1,16 @@
-import React, { useState } from "react"
+import React from "react"
 import "./Settings.css"
-// import ClockForm from "./ClockForm"
 import { SettingsProps } from "../../../utils/interfaces"
+import ClockForm from "../ClockForm/ClockForm"
 
 const Settings: React.FC<SettingsProps> = ({ clocks, updateClock }) => (
-  <div className="settings">
+  <div className="settings-container">
     {clocks.map((clock) => (
-      <li 
-        key={clock.id}
-        className="clocks"
-      >
-        {/* <ClockForm 
+        <ClockForm
+          key={clock.id}
           clock={clock}
           updateClock={updateClock}
-        /> */}
-      </li>
+        />
     ))}
   </div>
 )
