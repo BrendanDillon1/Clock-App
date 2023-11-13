@@ -2,56 +2,55 @@ import React, { useState } from "react";
 import { Clocks } from "../../../utils/interfaces";
 import Settings from "../Settings/Settings";
 import Clock from "../Clocks/Clocks";
-import "./App.css"
+import "./App.css";
+import majorTimeZones from "./TimeZones";
 
-const App = () => {
-  const [clocks, setClocks] = useState<Clocks[]>([
-    { id: 1, timeZone: "America/Detroit", isDigital: true },
-    { id: 2, timeZone: "Asia/Seoul", isDigital: true },
-    { id: 3, timeZone: "Iceland", isDigital: true },
-    { id: 4, timeZone: "Pacific/Tahiti", isDigital: true },
-  ]);
-  const addClock = (timeZone: string, isDigital: boolean) => {
+const App: React.FC = () => {
+  const [clocks, setClocks] = useState<Clocks[]>([]);
+  const [newTimeZone, setNewTimeZone] = useState<string>(majorTimeZones[0].value);
+  const [isDigital, setIsDigital] = useState<boolean>(true);
+
+  const handleAddClock = () => {
     const newClock: Clocks = {
       id: Date.now(),
-      timeZone,
-      isDigital,
+      timeZone: newTimeZone,
+      isDigital: isDigital,
     };
-    setClocks((clocks) => [...clocks, newClock]);
+    setClocks((prevClocks) => [...prevClocks, newClock]);
   };
 
-  const updateClock = (id: number, updatedValues: Partial<Clocks>) => {
-    setClocks((prevClocks) =>
-      prevClocks.map((clock) =>
-        clock.id === id ? { ...clock, ...updatedValues } : clock
-      )
-    );
+  const handleUpdateClock = (id: number, updatedValues: Partial<Clocks>) => {
+    setClocks((prevClocks) => prevClocks.map((clock) => (clock.id === id ? { ...clock, ...updatedValues } : clock)));
   };
 
-  const deleteClock = (clockId: number) => {
-    setClocks((clocks) => clocks.filter((clock) => clock.id !== clockId));
+  const handleDeleteClock = (clockId: number) => {
+    setClocks((prevClocks) => prevClocks.filter((clock) => clock.id !== clockId));
   };
 
   return (
     <div className="App">
       <header className="header">
         <h1>Clocks And Time</h1>
-        <button onClick={() => addClock("UTC", true)}>
-          Add UTC Digital Clock
-        </button>
+        <div>
+          <select value={newTimeZone} onChange={(e) => setNewTimeZone(e.target.value)}>
+            {majorTimeZones.map((tz) => (
+              <option key={tz.value} value={tz.value}>
+                {tz.label}
+              </option>
+            ))}
+          </select>
+          <label>
+            <input type="checkbox" checked={isDigital} onChange={(e) => setIsDigital(e.target.checked)} />
+            Is Digital
+          </label>
+          <button onClick={handleAddClock}>Add Clock</button>
+        </div>
       </header>
       <div className="components-container">
-        <Settings 
-          clocks={clocks} 
-          updateClock={updateClock} 
-        />
+        <Settings clocks={clocks} updateClock={handleUpdateClock} />
         <div className="clocks-container">
           {clocks.map((clock) => (
-            <Clock 
-              key={clock.id}
-              clock={clock} 
-              deleteClock={deleteClock} 
-            />
+            <Clock key={clock.id} clock={clock} deleteClock={handleDeleteClock} />
           ))}
         </div>
       </div>
