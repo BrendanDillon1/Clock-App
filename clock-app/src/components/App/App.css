@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  font-family: 'Space Grotesk';
-  background-color:  deepskyblue;
+  font-family: "Space Grotesk";
+  background: linear-gradient(to bottom, rgba(55, 0, 255, 0.39), skyblue);
   color: whitesmoke;
   min-height: 100vh;
   padding: 10px;

@@ -18,16 +18,16 @@ const AnalogClock: React.FC<AnalogClockProps> = ({ timeZone }) => {
     return () => clearInterval(timerId);
   }, [timeZone]);
 
-  const secondsDegrees = (time.getSeconds() / 60) * 360 + 90;
-  const minutesDegrees = (time.getMinutes() / 60) * 360 + (time.getSeconds() / 60) * 6 + 90;
-  const hoursDegrees = (time.getHours() / 12) * 360 + (time.getMinutes() / 60) * 30 + 90;
+  const secondsDegrees = (time.getSeconds() / 60) * 360;
+  const minutesDegrees = (time.getMinutes() / 60) * 360 + (time.getSeconds() / 60) * 6;
+  const hoursDegrees = ((time.getHours() % 12) / 12) * 360 + (time.getMinutes() / 60) * 30;
 
   return (
     <div className="analog-clock">
       <div className="hand hour-hand" style={{ transform: `rotate(${hoursDegrees}deg)` }} />
       <div className="hand minute-hand" style={{ transform: `rotate(${minutesDegrees}deg)` }} />
       <div className="hand second-hand" style={{ transform: `rotate(${secondsDegrees}deg)` }} />
-      <div className="clock-center" /> {/* This is the center point of the clock */}
+      <div className="clock-center" />
     </div>
   );
 };
