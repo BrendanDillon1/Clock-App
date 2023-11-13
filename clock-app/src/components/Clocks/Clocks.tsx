@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ClockProps } from "../../../utils/interfaces";
+import AnalogClock from "../ClockForm/AnalogClock";
 
 const Clock: React.FC<ClockProps> = ({ clock, deleteClock }) => {
   const [time, setTime] = useState<Date>(new Date());
@@ -24,10 +25,10 @@ const Clock: React.FC<ClockProps> = ({ clock, deleteClock }) => {
 
   return (
     <div className="clock">
-      <div className="digitalClock">{formatTime(time)}</div>
-      {/* A placeholder for the analog clock */}
-      {!clock.isDigital && (
-        <div className="analogClock">Analog clock is not implemented.</div>
+      {clock.isDigital ? (
+        <div className="digitalClock">{formatTime(time)}</div>
+      ) : (
+        <AnalogClock timeZone={clock.timeZone} />
       )}
       <button onClick={() => deleteClock(clock.id)}>Delete Clock</button>
     </div>
